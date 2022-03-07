@@ -259,9 +259,11 @@ class _ImageViewerState extends State<ImageViewer>
         backgroundColor: Colors.black,
         appBar: AppBar(
             title: Text("${widget.title} (${_currentIndex! + 1} "
-                "/ ${_images.length})"),
+                "/ ${_images.length})", style: TextStyle(color: _appBarTextColor)),
             backgroundColor: _appBarBackgroundColor,
             foregroundColor: _appBarTextColor,
+            iconTheme: IconThemeData(color: _appBarTextColor),
+            actionsIconTheme: IconThemeData(color: _appBarTextColor),
             actions: [
               GestureDetector(
                 onTap: hasImages

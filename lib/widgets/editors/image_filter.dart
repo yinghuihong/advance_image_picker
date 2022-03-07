@@ -143,9 +143,11 @@ class _ImageFilterState extends State<ImageFilter>
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title, style: TextStyle(color: _appBarTextColor)),
         backgroundColor: _appBarBackgroundColor,
         foregroundColor: _appBarTextColor,
+        iconTheme: IconThemeData(color: _appBarTextColor),
+        actionsIconTheme: IconThemeData(color: _appBarTextColor),
         actions: <Widget>[
           if (_loading)
             Container()

@@ -487,6 +487,8 @@ class _ImagePickerState extends State<ImagePicker>
             ),
             backgroundColor: _appBarBackgroundColor,
             foregroundColor: _appBarTextColor,
+            iconTheme: IconThemeData(color: _appBarTextColor),
+            actionsIconTheme: IconThemeData(color: _appBarTextColor),
             centerTitle: false,
             actions: <Widget>[
               _buildDoneButton(context, _appBarDoneButtonColor),
@@ -509,11 +511,14 @@ class _ImagePickerState extends State<ImagePicker>
                     .push<void>(PageRouteBuilder(
                         pageBuilder: (context, animation, __) {
                           return Scaffold(
+                              backgroundColor: _configs.backgroundColor,
                               appBar: AppBar(
                                   title: _buildAlbumSelectButton(context,
                                       isPop: true),
                                   backgroundColor: appBarBackgroundColor,
                                   foregroundColor: appBarTextColor,
+                                  iconTheme:
+                                      IconThemeData(color: appBarTextColor),
                                   centerTitle: false),
                               body: Material(
                                   color: Colors.black,
@@ -640,7 +645,7 @@ class _ImagePickerState extends State<ImagePicker>
       else
         _isGalleryPermissionOK
             ? _buildAlbumPreview(context)
-            : _builGalleryRequestPermissionView(context),
+            : _buildGalleryRequestPermissionView(context),
       if (_mode == PickerMode.Camera) ...[
         Positioned(
             bottom: bottomHeight.toDouble(),
@@ -755,7 +760,7 @@ class _ImagePickerState extends State<ImagePicker>
             Text(_configs.textSelectedImagesGuide,
                 style: const TextStyle(color: Colors.grey, fontSize: 14))
         ],
-        _buildReorderableSelectedImageList(context),
+        _buildRecorderableSelectedImageList(context),
         _buildCameraControls(context),
         Padding(
             padding: const EdgeInsets.all(8),
@@ -794,6 +799,7 @@ class _ImagePickerState extends State<ImagePicker>
                   isPop
                       ? Icons.arrow_upward_outlined
                       : Icons.arrow_downward_outlined,
+                  color: _configs.appBarTextColor,
                   size: 16),
             )
           ],
@@ -922,7 +928,7 @@ class _ImagePickerState extends State<ImagePicker>
   }
 
   /// Build camera request permission view
-  Widget _builGalleryRequestPermissionView(BuildContext context) {
+  Widget _buildGalleryRequestPermissionView(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final bottomHeight = (widget.maxCount == 1)
         ? (kBottomControlPanelHeight - 40)
@@ -1067,7 +1073,7 @@ class _ImagePickerState extends State<ImagePicker>
   }
 
   /// Build reorderable selected image list.
-  Widget _buildReorderableSelectedImageList(BuildContext context) {
+  Widget _buildRecorderableSelectedImageList(BuildContext context) {
     LogUtils.log("[_buildReorderableSelectedImageList] start");
 
     Widget makeThumbnailImage(String? path) {

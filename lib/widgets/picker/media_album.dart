@@ -218,7 +218,7 @@ class MediaAlbumState extends State<MediaAlbum> {
                     top: 10,
                     right: 10,
                     child: Icon(Icons.check_circle,
-                        color: Colors.pinkAccent, size: 24))
+                        color: Colors.red, size: 24))
             ]),
           );
         });

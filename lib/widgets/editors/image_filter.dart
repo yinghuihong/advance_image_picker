@@ -246,7 +246,7 @@ class _ImageFilterState extends State<ImageFilter>
           decoration: BoxDecoration(
               color: Colors.grey,
               border: Border.all(
-                  color: isSelected ? Colors.blue : Colors.white, width: 3),
+                  color: isSelected ? widget.configs!.appBarDoneButtonColor! : Colors.white, width: 3),
               borderRadius: const BorderRadius.all(Radius.circular(10))),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(10),

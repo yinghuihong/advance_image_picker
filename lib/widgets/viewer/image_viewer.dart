@@ -420,7 +420,7 @@ class _ImageViewerState extends State<ImageViewer>
                         color: Colors.grey,
                         border: Border.all(
                             color: (i == _currentIndex)
-                                ? Colors.blue
+                                ? _configs.appBarDoneButtonColor!
                                 : Colors.white,
                             width: 3),
                         borderRadius:
@@ -671,8 +671,8 @@ class _ImageViewerState extends State<ImageViewer>
           left: 10,
           child: TextButton(
             style: TextButton.styleFrom(
-              primary: Colors.blue,
-              backgroundColor: Colors.blue,
+              primary: _configs.appBarDoneButtonColor,
+              backgroundColor: _configs.appBarDoneButtonColor,
               padding: EdgeInsets.zero,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(30)),

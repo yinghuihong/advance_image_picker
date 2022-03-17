@@ -1219,7 +1219,7 @@ class _ImagePickerState extends State<ImagePicker>
                           color: Colors.grey,
                           border: Border.all(
                               color: (i == _selectedImages.length)
-                                  ? Colors.blue
+                                  ? _configs.appBarDoneButtonColor!
                                   : Colors.white,
                               width: 3),
                           borderRadius:

@@ -176,7 +176,7 @@ class _ImageFilterState extends State<ImageFilter>
                     child: Container(
                       width: double.infinity,
                       height: double.infinity,
-                      padding: const EdgeInsets.all(8),
+                      // padding: const EdgeInsets.all(8),
                       child: _buildFilteredWidget(_filter, _imageBytes!),
                     ),
                   ),
@@ -253,10 +253,13 @@ class _ImageFilterState extends State<ImageFilter>
               child: Image.memory(bytes!, fit: BoxFit.cover)),
         );
       } else {
-        return Image.memory(
-          bytes!,
-          fit: BoxFit.contain,
-          gaplessPlayback: true,
+        return Container(
+          color: Colors.white,
+          child: Image.memory(
+            bytes!,
+            fit: BoxFit.contain,
+            gaplessPlayback: true,
+          ),
         );
       }
     }

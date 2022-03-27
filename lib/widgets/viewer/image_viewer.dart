@@ -343,7 +343,7 @@ class _ImageViewerState extends State<ImageViewer>
               builder: _buildItem,
               itemCount: _images.length,
               backgroundDecoration: const BoxDecoration(
-                color: Colors.black,
+                color: Colors.white,
               ),
               pageController: widget.pageController,
               onPageChanged: onPageChanged,

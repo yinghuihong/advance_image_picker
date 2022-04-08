@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -376,8 +375,8 @@ class _ImageViewerState extends State<ImageViewer>
   }
 
   /// Reorder selected image list.
-  bool? _reorderSelectedImageList(int oldIndex, int newIndex) {
-    if (oldIndex < 0 || newIndex < 0) return false;
+  void _reorderSelectedImageList(int oldIndex, int newIndex) {
+    if (oldIndex < 0 || newIndex < 0) return;
     int _newIndex = newIndex;
     setState(() {
       if (_newIndex > oldIndex) {
@@ -511,8 +510,7 @@ class _ImageViewerState extends State<ImageViewer>
                                       border: Border.all(
                                           color: isSelected
                                               ? Colors.white
-                                              : Colors.grey,
-                                          width: 1),
+                                              : Colors.grey),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(10))),
                                   padding: const EdgeInsets.symmetric(

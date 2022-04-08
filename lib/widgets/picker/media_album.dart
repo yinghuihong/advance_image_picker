@@ -148,7 +148,7 @@ class MediaAlbumState extends State<MediaAlbum> {
             mainAxisSpacing: 2,
             crossAxisSpacing: 2),
         itemBuilder: (BuildContext context, int index) {
-          final asset = _assets[index];
+          final AssetEntity asset = _assets[index];
           final idx = _selectedImages.indexWhere(
               (element) => ImageUtils.isTheSameAsset(asset, element));
           final isMaxCount = _selectedImages.length >= widget.maxCount!;

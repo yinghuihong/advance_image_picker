@@ -6,7 +6,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 import '../../configs/image_picker_configs.dart';
@@ -111,7 +110,7 @@ class _ImagePickerState extends State<ImagePicker>
   /// Flag indicating status of permission to access cameras
   bool _isCameraPermissionOK = false;
 
-  /// Flag indicating status of permission to access photo libray
+  /// Flag indicating status of permission to access photo library
   bool _isGalleryPermissionOK = false;
 
   /// Image configuration.
@@ -760,7 +759,7 @@ class _ImagePickerState extends State<ImagePicker>
             Text(_configs.textSelectedImagesGuide,
                 style: const TextStyle(color: Colors.grey, fontSize: 14))
         ],
-        _buildRecorderableSelectedImageList(context),
+        _buildReorderableSelectedImageList(context),
         _buildCameraControls(context),
         Padding(
             padding: const EdgeInsets.all(8),
@@ -1053,13 +1052,13 @@ class _ImagePickerState extends State<ImagePicker>
   }
 
   /// Reorder selected image list event.
-  bool? _reorderSelectedImageList(int oldIndex, int newIndex) {
+  void _reorderSelectedImageList(int oldIndex, int newIndex) {
     LogUtils.log("[_reorderSelectedImageList] start");
 
     if (oldIndex >= _selectedImages.length ||
         newIndex > _selectedImages.length ||
         oldIndex < 0 ||
-        newIndex < 0) return false;
+        newIndex < 0) return;
 
     int _newIndex = newIndex;
     setState(() {
@@ -1073,7 +1072,7 @@ class _ImagePickerState extends State<ImagePicker>
   }
 
   /// Build reorderable selected image list.
-  Widget _buildRecorderableSelectedImageList(BuildContext context) {
+  Widget _buildReorderableSelectedImageList(BuildContext context) {
     LogUtils.log("[_buildReorderableSelectedImageList] start");
 
     Widget makeThumbnailImage(String? path) {

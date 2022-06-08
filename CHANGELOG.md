@@ -1,3 +1,14 @@
+## [0.1.7+1]
+
+* **Update:**
+  * Fix required dart version
+
+## [0.1.7]
+
+* **Update:**
+  * Upgrade packages
+  * Support for flutter 3.x
+
 ## [0.1.6+1]
 
 * **Update:**

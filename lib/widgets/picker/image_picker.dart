@@ -308,6 +308,7 @@ class _ImagePickerState extends State<ImagePicker>
       }
     }).catchError((e) {
       LogUtils.log('Camera error ${e.toString()}');
+      PhotoManager.openSetting();
     });
   }
 
@@ -346,6 +347,7 @@ class _ImagePickerState extends State<ImagePicker>
     try {
       // Request permission for image selecting
       final result = await PhotoManager.requestPermissionExtend();
+      LogUtils.log('PhotoGallery result $result');
       if (result.isAuth) {
         LogUtils.log('PhotoGallery permission allowed');
 
@@ -361,7 +363,8 @@ class _ImagePickerState extends State<ImagePicker>
           });
         }
       } else {
-        LogUtils.log('PhotoGallery permission not allowed');
+        await PhotoManager.openSetting();
+        LogUtils.log('PhotoGallery permission denied then opened settings');
       }
     } catch (e) {
       LogUtils.log('PhotoGallery error ${e.toString()}');

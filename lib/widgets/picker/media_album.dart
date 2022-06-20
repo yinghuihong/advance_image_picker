@@ -196,10 +196,13 @@ class MediaAlbumState extends State<MediaAlbum> {
                           builder: (BuildContext context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
-                              return Image.memory(
-                                snapshot.data! as Uint8List,
-                                fit: BoxFit.cover,
-                              );
+                              /// Null check operator used on a null value. Error thrown Instance of 'ErrorDescription'. Add by yinghuihong
+                              if (snapshot.data != null) {
+                                return Image.memory(
+                                  snapshot.data! as Uint8List,
+                                  fit: BoxFit.cover,
+                                );
+                              }
                             }
                             return const Center(
                                 child: CupertinoActivityIndicator());
@@ -217,8 +220,8 @@ class MediaAlbumState extends State<MediaAlbum> {
                 const Positioned(
                     top: 10,
                     right: 10,
-                    child: Icon(Icons.check_circle,
-                        color: Colors.red, size: 24))
+                    child:
+                        Icon(Icons.check_circle, color: Colors.red, size: 24))
             ]),
           );
         });

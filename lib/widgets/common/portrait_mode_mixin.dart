@@ -47,7 +47,8 @@ void _enableRotation() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
+    /// edit by yinghuihong 限制为垂直方向
+    // DeviceOrientation.landscapeLeft,
+    // DeviceOrientation.landscapeRight,
   ]);
 }

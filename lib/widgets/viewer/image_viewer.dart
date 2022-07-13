@@ -309,9 +309,9 @@ class _ImageViewerState extends State<ImageViewer>
                       }
                     : null,
                 child: Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(12),
                   child: Icon(Icons.delete,
-                      size: 32,
+                      size: 24,
                       color:
                           hasImages ? _configs.appBarTextColor : Colors.grey),
                 ),
@@ -486,11 +486,11 @@ class _ImageViewerState extends State<ImageViewer>
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Display image resolution
-                        Text("${image.modifiedWidth}x${image.modifiedHeight}",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)),
+                        // // Display image resolution
+                        // Text("${image.modifiedWidth} x ${image.modifiedHeight}",
+                        //     style: const TextStyle(
+                        //         color: Colors.white,
+                        //         fontWeight: FontWeight.bold)),
                         // Display detected labels
                         if (image.recognitions != null &&
                             image.recognitions!.isNotEmpty)

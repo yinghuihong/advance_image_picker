@@ -1088,7 +1088,7 @@ class _ImagePickerState extends State<ImagePicker>
 
     Widget makeThumbnailImage(String? path) {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(7),
         child: Image.file(
           File(path!),
           fit: BoxFit.cover,

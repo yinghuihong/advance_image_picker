@@ -398,7 +398,7 @@ class _ImageViewerState extends State<ImageViewer>
   Widget _buildReorderableSelectedImageList(BuildContext context) {
     Widget makeThumbnail(String? path) {
       return ClipRRect(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(7),
           child: Image.file(File(path!),
               fit: BoxFit.cover,
               width: _configs.thumbWidth.toDouble(),

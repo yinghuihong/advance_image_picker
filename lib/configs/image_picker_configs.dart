@@ -330,14 +330,14 @@ class ImagePickerConfigs {
   /// Defaults to "You can drag images for sorting list...".
   String get textSelectedImagesGuide => getTranslatedString(
       "image_picker_select_images_guide",
-      "Long press & drag selected images to sort list.");
+      "Long press & drag selected images to SORT list.");
 
   /// Get localized text for label "image_picker_select_images_guide2".
   ///
   /// Defaults to "You can also press selected image to edit it.".
   String get textSelectedImagesGuide2 => getTranslatedString(
       "image_picker_select_images_guide",
-      "You can also press selected image to edit it.");
+      "You can also tap selected image to EDIT it.");
 
   /// Get localized text for label "image_picker_camera_title".
   ///

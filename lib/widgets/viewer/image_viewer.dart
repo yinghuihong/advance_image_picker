@@ -261,12 +261,13 @@ class _ImageViewerState extends State<ImageViewer>
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
+            leading: BackButton(
+                color: _appBarTextColor
+            ),
             title: Text("${widget.title} (${_currentIndex! + 1} "
                 "/ ${_images.length})", style: TextStyle(color: _appBarTextColor)),
             backgroundColor: _appBarBackgroundColor,
             foregroundColor: _appBarTextColor,
-            iconTheme: IconThemeData(color: _appBarTextColor),
-            actionsIconTheme: IconThemeData(color: _appBarTextColor),
             actions: [
               GestureDetector(
                 onTap: hasImages

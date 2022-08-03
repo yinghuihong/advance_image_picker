@@ -117,12 +117,13 @@ class _ImageStickerState extends State<ImageSticker>
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        leading: CloseButton(
+            color: _appBarTextColor
+        ),
         title: Text(widget.title, style: TextStyle(color: _appBarTextColor)),
         backgroundColor: _appBarBackgroundColor,
         foregroundColor: _appBarTextColor,
-        iconTheme: IconThemeData(color: _appBarTextColor),
-        actionsIconTheme: IconThemeData(color: _appBarTextColor),
-        actions: <Widget>[_buildDoneButton(context)],
+        actions: <Widget>[_buildDoneButton(context, _appBarTextColor)],
       ),
       body: Stack(fit: StackFit.passthrough, children: [
         Column(
@@ -166,9 +167,9 @@ class _ImageStickerState extends State<ImageSticker>
   }
 
   /// Done process button.
-  Widget _buildDoneButton(BuildContext context) {
+  Widget _buildDoneButton(BuildContext context, Color _appBarTextColor) {
     return IconButton(
-      icon: const Icon(Icons.done),
+      icon: Icon(Icons.done, color: _appBarTextColor),
       onPressed: (_selectedStickerView == null)
           ? () async {
               // Save current image editing

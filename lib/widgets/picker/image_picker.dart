@@ -482,6 +482,9 @@ class _ImagePickerState extends State<ImagePicker>
           key: _scaffoldKey,
           backgroundColor: _configs.backgroundColor,
           appBar: AppBar(
+            leading: BackButton(
+                color: _appBarTextColor
+            ),
             title: _buildAppBarTitle(
               context,
               _appBarBackgroundColor,
@@ -489,8 +492,6 @@ class _ImagePickerState extends State<ImagePicker>
             ),
             backgroundColor: _appBarBackgroundColor,
             foregroundColor: _appBarTextColor,
-            iconTheme: IconThemeData(color: _appBarTextColor),
-            actionsIconTheme: IconThemeData(color: _appBarTextColor),
             centerTitle: false,
             actions: <Widget>[
               _buildDoneButton(context, _appBarDoneButtonColor),
@@ -515,12 +516,13 @@ class _ImagePickerState extends State<ImagePicker>
                           return Scaffold(
                               backgroundColor: _configs.backgroundColor,
                               appBar: AppBar(
+                                  leading: CloseButton(
+                                    color: appBarTextColor,
+                                  ),
                                   title: _buildAlbumSelectButton(context,
                                       isPop: true),
                                   backgroundColor: appBarBackgroundColor,
                                   foregroundColor: appBarTextColor,
-                                  iconTheme:
-                                      IconThemeData(color: appBarTextColor),
                                   centerTitle: false),
                               body: Material(
                                   color: Colors.black,
@@ -1037,9 +1039,10 @@ class _ImagePickerState extends State<ImagePicker>
                 final thumbnail = _albumThumbnails[i]!;
                 return InkWell(
                   child: ListTile(
+                      dense: false,
                       leading: SizedBox(
-                          width: 80,
-                          height: 80,
+                          width: 120,
+                          height: 120,
                           child: Image.memory(thumbnail, fit: BoxFit.cover)),
                       title: Text(album.name,
                           style: const TextStyle(color: Colors.white)),

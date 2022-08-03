@@ -100,12 +100,13 @@ class _ImageEditState extends State<ImageEdit>
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        leading: CloseButton(
+            color: _appBarTextColor
+        ),
         title: Text(widget.title, style: TextStyle(color: _appBarTextColor)),
         backgroundColor: _appBarBackgroundColor,
         foregroundColor: _appBarTextColor,
-        iconTheme: IconThemeData(color: _appBarTextColor),
-        actionsIconTheme: IconThemeData(color: _appBarTextColor),
-        actions: <Widget>[_buildDoneButton(context)],
+        actions: <Widget>[_buildDoneButton(context, _appBarTextColor)],
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -170,9 +171,9 @@ class _ImageEditState extends State<ImageEdit>
     }
   }
 
-  Widget _buildDoneButton(BuildContext context) {
+  Widget _buildDoneButton(BuildContext context, Color _appBarTextColor) {
     return IconButton(
-      icon: const Icon(Icons.done),
+      icon: Icon(Icons.done, color: _appBarTextColor,),
       onPressed: () async {
         final dir = await path_provider.getTemporaryDirectory();
         final targetPath = "${dir.absolute.path}/temp_"

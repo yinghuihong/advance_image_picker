@@ -54,6 +54,7 @@ class ImagePickerConfigs {
   factory ImagePickerConfigs() {
     return _singleton;
   }
+
   ImagePickerConfigs._internal();
 
   /// Singleton object for holding the image picker configuration settings.
@@ -70,7 +71,7 @@ class ImagePickerConfigs {
   /// configs.translateFunc = (name, value) => Intl.message(value, name: name);
   /// If using GetX, function like this:
   /// configs.translateFunc = (name, value) => name.tr;
-  late String Function(String, String) translateFunc;
+  late String Function(BuildContext, String, String) translateFunc;
 
   /// Grid count for photo album grid view.
   ///
@@ -322,140 +323,148 @@ class ImagePickerConfigs {
   /// Get localized text for label "image_picker_select_images_title".
   ///
   /// Defaults to "Selected images count".
-  String get textSelectedImagesTitle => getTranslatedString(
-      "image_picker_select_images_title", "Selected images count");
+  String textSelectedImagesTitle(BuildContext context) => getTranslatedString(
+      context, "image_picker_select_images_title", "Selected images count");
 
   /// Get localized text for label "image_picker_select_images_guide".
   ///
   /// Defaults to "You can drag images for sorting list...".
-  String get textSelectedImagesGuide => getTranslatedString(
+  String textSelectedImagesGuide(BuildContext context) => getTranslatedString(
+      context,
       "image_picker_select_images_guide",
       "Long press & drag selected images to SORT list.");
 
   /// Get localized text for label "image_picker_select_images_guide2".
   ///
   /// Defaults to "You can also press selected image to edit it.".
-  String get textSelectedImagesGuide2 => getTranslatedString(
-      "image_picker_select_images_guide",
+  String textSelectedImagesGuide2(BuildContext context) => getTranslatedString(
+      context,
+      "image_picker_select_images_guide2",
       "You can also tap selected image to EDIT it.");
 
   /// Get localized text for label "image_picker_camera_title".
   ///
   /// Defaults to "Camera".
-  String get textCameraTitle =>
-      getTranslatedString("image_picker_camera_title", "Camera");
+  String textCameraTitle(BuildContext context) =>
+      getTranslatedString(context, "image_picker_camera_title", "Camera");
 
   /// Get localized text for label "image_picker_album_title".
   ///
   /// Defaults to "Album".
-  String get textAlbumTitle =>
-      getTranslatedString("image_picker_album_title", "Album");
+  String textAlbumTitle(BuildContext context) =>
+      getTranslatedString(context, "image_picker_album_title", "Album");
 
   /// Get localized text for label "image_picker_preview_title".
   ///
   /// Defaults to "Preview".
-  String get textPreviewTitle =>
-      getTranslatedString("image_picker_preview_title", "Preview");
+  String textPreviewTitle(BuildContext context) =>
+      getTranslatedString(context, "image_picker_preview_title", "Preview");
 
   /// Get localized text for label "image_picker_confirm".
   ///
   /// Defaults to "Confirm".
-  String get textConfirm =>
-      getTranslatedString("image_picker_confirm", "Confirm");
+  String textConfirm(BuildContext context) =>
+      getTranslatedString(context, "image_picker_confirm", "Confirm");
 
   /// Get localized text for label "image_picker_exit_without_selecting".
   ///
   /// Defaults to "Do you want to exit without selecting images?".
-  String get textConfirmExitWithoutSelectingImages => translateFunc(
-      "image_picker_exit_without_selecting",
-      "Do you want to exit without selecting images?");
+  String textConfirmExitWithoutSelectingImages(BuildContext context) =>
+      translateFunc(context, "image_picker_exit_without_selecting",
+          "Do you want to exit without selecting images?");
 
   /// Get localized text for label "image_picker_confirm_delete".
   ///
   /// Defaults to "Do you want to delete this image?".
-  String get textConfirmDelete => getTranslatedString(
+  String textConfirmDelete(BuildContext context) => getTranslatedString(context,
       "image_picker_confirm_delete", "Do you want to delete this image?");
 
   /// Get localized text for label "image_picker_confirm_reset_changes".
   ///
   /// Defaults to "Do you want to clear all changes for this image?".
-  String get textConfirmResetChanges => getTranslatedString(
+  String textConfirmResetChanges(BuildContext context) => getTranslatedString(
+      context,
       "image_picker_confirm_reset_changes",
       "Do you want to clear all changes for this image?");
 
   /// Get localized text for label "yes".
   ///
   /// Defaults to "Yes".
-  String get textYes => getTranslatedString("yes", "Yes");
+  String textYes(BuildContext context) =>
+      getTranslatedString(context, "image_picker_yes", "Yes");
 
   /// Get localized text for label "no".
   ///
   /// Defaults to "No".
-  String get textNo => getTranslatedString("no", "No");
+  String textNo(BuildContext context) =>
+      getTranslatedString(context, "image_picker_no", "No");
 
   /// Get localized text for label "save".
   ///
   /// Defaults to "Save".
-  String get textSave => getTranslatedString("save", "Save");
+  String textSave(BuildContext context) =>
+      getTranslatedString(context, "image_picker_save", "Save");
 
   /// Get localized text for label "clear".
   ///
   /// Defaults to "Clear".
-  String get textClear => getTranslatedString("clear", "Clear");
+  String textClear(BuildContext context) =>
+      getTranslatedString(context, "image_picker_clear", "Clear");
 
   /// Get localized text for label "image_picker_edit_text".
   ///
   /// Defaults to "Edit text".
-  String get textEditText =>
-      getTranslatedString("image_picker_edit_text", "Edit text");
+  String textEditText(BuildContext context) =>
+      getTranslatedString(context, "image_picker_edit_text", "Edit text");
 
   /// Get localized text for label "image_picker_no_images".
   ///
   /// Defaults to "No images ...".
-  String get textNoImages =>
-      getTranslatedString("image_picker_no_images", "No images ...");
+  String textNoImages(BuildContext context) =>
+      getTranslatedString(context, "image_picker_no_images", "No images ...");
 
   /// Get localized text for label "image_picker_image_crop_title".
   ///
   /// Defaults to "Image crop".
-  String get textImageCropTitle =>
-      getTranslatedString("image_picker_image_crop_title", "Image crop");
+  String textImageCropTitle(BuildContext context) => getTranslatedString(
+      context, "image_picker_image_crop_title", "Image crop");
 
   /// Get localized text for label "image_picker_image_filter_title".
   ///
   /// Defaults to "Image filter".
-  String get textImageFilterTitle =>
-      getTranslatedString("image_picker_image_filter_title", "Image filter");
+  String textImageFilterTitle(BuildContext context) => getTranslatedString(
+      context, "image_picker_image_filter_title", "Image filter");
 
   /// Get localized text for label "image_picker_image_edit_title".
   ///
   /// Defaults to "Image edit".
-  String get textImageEditTitle =>
-      getTranslatedString("image_picker_image_edit_title", "Image edit");
+  String textImageEditTitle(BuildContext context) => getTranslatedString(
+      context, "image_picker_image_edit_title", "Image edit");
 
   /// Get localized text for label "image_picker_image_sticker_title".
   ///
   /// Defaults to "Image sticker".
-  String get textImageStickerTitle =>
-      getTranslatedString("image_picker_image_sticker_title", "Image sticker");
+  String textImageStickerTitle(BuildContext context) => getTranslatedString(
+      context, "image_picker_image_sticker_title", "Image sticker");
 
   /// Get localized text for label "image_picker_image_addtext_title".
   ///
   /// Defaults to "Image add text".
-  String get textImageAddTextTitle =>
-      getTranslatedString("image_picker_image_addtext_title", "Image add text");
+  String textImageAddTextTitle(BuildContext context) => getTranslatedString(
+      context, "image_picker_image_addtext_title", "Image add text");
 
   /// Get localized text for label "image_picker_select_button_title".
   ///
   /// Defaults to "Select".
-  String get textSelectButtonTitle =>
-      getTranslatedString("image_picker_select_button_title", "Select");
+  String textSelectButtonTitle(BuildContext context) => getTranslatedString(
+      context, "image_picker_select_button_title", "Select");
 
   /// Get localized text for label "image_picker_image_sticker_guide".
   ///
   /// Defaults to "You can click on below icons to add into image, double
   /// click to remove it from image".
-  String get textImageStickerGuide => getTranslatedString(
+  String textImageStickerGuide(BuildContext context) => getTranslatedString(
+      context,
       "image_picker_image_sticker_guide",
       "You can click on sticker icons to scale it or double click to "
           "remove it from image");
@@ -463,66 +472,68 @@ class ImagePickerConfigs {
   /// Get localized text for label "image_picker_exposure_title".
   ///
   /// Defaults to "Exposure".
-  String get textExposure =>
-      getTranslatedString("image_picker_exposure_title", "Exposure");
+  String textExposure(BuildContext context) =>
+      getTranslatedString(context, "image_picker_exposure_title", "Exposure");
 
   /// Get localized text for label "image_picker_exposure_locked_title".
   ///
   /// Defaults to "Locked".
-  String get textExposureLocked =>
-      getTranslatedString("image_picker_exposure_locked_title", "Locked");
+  String textExposureLocked(BuildContext context) => getTranslatedString(
+      context, "image_picker_exposure_locked_title", "Locked");
 
   /// Get localized text for label "image_picker_exposure_auto_title".
   ///
   /// Defaults to "auto".
-  String get textExposureAuto =>
-      getTranslatedString("image_picker_exposure_auto_title", "auto");
+  String textExposureAuto(BuildContext context) =>
+      getTranslatedString(context, "image_picker_exposure_auto_title", "auto");
 
   /// Get localized text for label "image_picker_image_edit_contrast".
   ///
   /// Defaults to "contrast".
-  String get textContrast =>
-      getTranslatedString("image_picker_image_edit_contrast", "contrast");
+  String textContrast(BuildContext context) => getTranslatedString(
+      context, "image_picker_image_edit_contrast", "contrast");
 
   /// Get localized text for label "image_picker_image_edit_brightness".
   ///
   /// Defaults to "brightness".
-  String get textBrightness =>
-      getTranslatedString("image_picker_image_edit_brightness", "brightness");
+  String textBrightness(BuildContext context) => getTranslatedString(
+      context, "image_picker_image_edit_brightness", "brightness");
 
   /// Get localized text for label "image_picker_image_edit_saturation".
   ///
   /// Defaults to "saturation".
-  String get textSaturation =>
-      getTranslatedString("image_picker_image_edit_saturation", "saturation");
+  String textSaturation(BuildContext context) => getTranslatedString(
+      context, "image_picker_image_edit_saturation", "saturation");
 
   /// Get localized text for label "image_picker_ocr".
   ///
   /// Defaults to "OCR".
-  String get textOCR => getTranslatedString("image_picker_ocr", "OCR");
+  String textOCR(BuildContext context) =>
+      getTranslatedString(context, "image_picker_ocr", "OCR");
 
   /// Get localized text for label "image_picker_request_permission".
   ///
   /// Defaults to "Request Permission".
-  String get textRequestPermission => getTranslatedString(
-      "image_picker_request_permission", "Request Permission");
+  String textRequestPermission(BuildContext context) => getTranslatedString(
+      context, "image_picker_request_permission", "Request Permission");
 
   /// Get localized text for label "image_picker_request_camera_permission".
   ///
   /// Defaults to "You need allow camera permission.".
-  String get textRequestCameraPermission => getTranslatedString(
-      "image_picker_request_camera_permission",
-      "You need allow camera permission.");
+  String textRequestCameraPermission(BuildContext context) =>
+      getTranslatedString(context, "image_picker_request_camera_permission",
+          "You need allow camera permission.");
 
   /// Get localized text for label "image_picker_request_gallery_permission".
   ///
   /// Defaults to "You need allow photo gallery permission.".
-  String get textRequestGalleryPermission => getTranslatedString(
-      "image_picker_request_gallery_permission",
-      "You need allow photo gallery permission.");
+  String textRequestGalleryPermission(BuildContext context) =>
+      getTranslatedString(context, "image_picker_request_gallery_permission",
+          "You need allow photo gallery permission.");
 
   /// Translate string by translateFunc.
-  String getTranslatedString(String name, String defaultValue) {
-    return translateFunc.call(name, defaultValue);
+  String getTranslatedString(
+      BuildContext context, String name, String defaultValue) {
+    return translateFunc.call(context, name, defaultValue);
   }
 }

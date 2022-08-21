@@ -19,6 +19,7 @@ void main() {
 class MyApp extends StatelessWidget {
   /// Example app constructor.
   const MyApp({final Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
     // Only use front camera for capturing
     // configs.cameraLensDirection = 0;
     // Translate function
-    configs.translateFunc = (name, value) => Intl.message(value, name: name);
+    configs.translateFunc =
+        (context, name, value) => Intl.message(value, name: name);
     // Disable edit function, then add other edit control instead
     configs.adjustFeatureEnabled = false;
     configs.externalImageEditors['external_image_editor_1'] = EditorParams(

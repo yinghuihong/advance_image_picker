@@ -422,8 +422,9 @@ class _ImagePickerState extends State<ImagePicker>
     return (await showDialog<bool>(
             context: context,
             builder: (context) => AlertDialog(
-                  title: Text(_configs.textConfirm),
-                  content: Text(_configs.textConfirmExitWithoutSelectingImages),
+                  title: Text(_configs.textConfirm(context)),
+                  content: Text(
+                      _configs.textConfirmExitWithoutSelectingImages(context)),
                   actions: <Widget>[
                     TextButton(
                       style: TextButton.styleFrom(
@@ -435,7 +436,7 @@ class _ImagePickerState extends State<ImagePicker>
                         ),
                       ),
                       onPressed: () => Navigator.of(context).pop(false),
-                      child: Text(_configs.textNo),
+                      child: Text(_configs.textNo(context)),
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
@@ -447,7 +448,7 @@ class _ImagePickerState extends State<ImagePicker>
                         ),
                       ),
                       onPressed: () => Navigator.of(context).pop(true),
-                      child: Text(_configs.textYes),
+                      child: Text(_configs.textYes(context)),
                     ),
                   ],
                 ))) ??
@@ -482,9 +483,7 @@ class _ImagePickerState extends State<ImagePicker>
           key: _scaffoldKey,
           backgroundColor: _configs.backgroundColor,
           appBar: AppBar(
-            leading: BackButton(
-                color: _appBarTextColor
-            ),
+            leading: BackButton(color: _appBarTextColor),
             title: _buildAppBarTitle(
               context,
               _appBarBackgroundColor,
@@ -603,7 +602,7 @@ class _ImagePickerState extends State<ImagePicker>
                     borderRadius: BorderRadius.circular(10))),
               ),
               child: Row(children: [
-                Text(_configs.textSelectButtonTitle,
+                Text(_configs.textSelectButtonTitle(context),
                     style: TextStyle(
                         color: _selectedImages.isNotEmpty
                             ? ((buttonColor == Colors.white)
@@ -745,9 +744,9 @@ class _ImagePickerState extends State<ImagePicker>
     // Add leading text and colon+blank, only if 'textSelectedImagesTitle' is
     // not blank in a none breaking way to previous version.
     final String _textSelectedImagesTitle =
-        _configs.textSelectedImagesTitle == ''
-            ? _configs.textSelectedImagesTitle
-            : '${_configs.textSelectedImagesTitle}: ';
+        _configs.textSelectedImagesTitle(context) == ''
+            ? _configs.textSelectedImagesTitle(context)
+            : '${_configs.textSelectedImagesTitle(context)}: ';
     return Container(
       color: ((_mode == PickerMode.Camera) && _isFullscreenImage)
           ? _configs.bottomPanelColorInFullscreen
@@ -760,12 +759,12 @@ class _ImagePickerState extends State<ImagePicker>
               '${_selectedImages.length.toString()}'
               ' / ${widget.maxCount.toString()}',
               style: const TextStyle(color: Colors.white, fontSize: 14)),
-          if (_configs.textSelectedImagesGuide != '') ...[
-            Text(_configs.textSelectedImagesGuide,
+          if (_configs.textSelectedImagesGuide(context) != '') ...[
+            Text(_configs.textSelectedImagesGuide(context),
                 style: const TextStyle(color: Colors.green, fontSize: 14))
           ],
-          if (_configs.textSelectedImagesGuide2 != '') ...[
-            Text(_configs.textSelectedImagesGuide2,
+          if (_configs.textSelectedImagesGuide2(context) != '') ...[
+            Text(_configs.textSelectedImagesGuide2(context),
                 style: const TextStyle(color: Colors.green, fontSize: 14))
           ],
         ],
@@ -782,7 +781,7 @@ class _ImagePickerState extends State<ImagePicker>
   Widget _buildAlbumSelectButton(BuildContext context,
       {bool isPop = false, bool isCameraMode = false}) {
     if (isCameraMode) {
-      return Text(_configs.textCameraTitle,
+      return Text(_configs.textCameraTitle(context),
           style: TextStyle(color: _configs.appBarTextColor, fontSize: 16));
     }
 
@@ -845,10 +844,10 @@ class _ImagePickerState extends State<ImagePicker>
               ),
             ),
             onPressed: _initCameraController,
-            child: Text(_configs.textRequestPermission,
+            child: Text(_configs.textRequestPermission(context),
                 style: const TextStyle(color: Colors.black)),
           ),
-          Text(_configs.textRequestCameraPermission,
+          Text(_configs.textRequestCameraPermission(context),
               style: const TextStyle(color: Colors.grey))
         ],
       ),
@@ -955,10 +954,10 @@ class _ImagePickerState extends State<ImagePicker>
               ),
             ),
             onPressed: _initPhotoGallery,
-            child: Text(_configs.textRequestPermission,
+            child: Text(_configs.textRequestPermission(context),
                 style: const TextStyle(color: Colors.black)),
           ),
-          Text(_configs.textRequestGalleryPermission,
+          Text(_configs.textRequestGalleryPermission(context),
               style: const TextStyle(color: Colors.grey))
         ]));
   }
@@ -1036,17 +1035,21 @@ class _ImagePickerState extends State<ImagePicker>
               itemCount: _albums.length,
               itemBuilder: (context, i) {
                 final album = _albums[i];
-                final thumbnail = _albumThumbnails[i]!;
+                final thumbnail = _albumThumbnails[i];
+                if (thumbnail == null) {
+                  return Container();
+                }
                 return InkWell(
                   child: ListTile(
                       dense: false,
+                      contentPadding: const EdgeInsets.fromLTRB(30, 12, 16, 12),
                       leading: SizedBox(
-                          width: 120,
-                          height: 120,
+                          width: 64,
+                          height: 64,
                           child: Image.memory(thumbnail, fit: BoxFit.cover)),
                       title: Text(album.name,
                           style: const TextStyle(color: Colors.white)),
-                      subtitle: Text(album.assetCount.toString(),
+                      trailing: Text(album.assetCount.toString(),
                           style: const TextStyle(color: Colors.grey)),
                       onTap: () async {
                         callback.call(album);
@@ -1128,7 +1131,7 @@ class _ImagePickerState extends State<ImagePicker>
                 height: 24,
                 width: 24,
                 child: const Icon(
-                  Icons.close,
+                  Icons.close_outlined,
                   size: 16,
                   color: Colors.white,
                 ),
@@ -1140,17 +1143,17 @@ class _ImagePickerState extends State<ImagePicker>
                     builder: (BuildContext context) {
                       // return object of type Dialog
                       return AlertDialog(
-                        title: Text(_configs.textConfirm),
-                        content: Text(_configs.textConfirmDelete),
+                        title: Text(_configs.textConfirm(context)),
+                        content: Text(_configs.textConfirmDelete(context)),
                         actions: <Widget>[
                           TextButton(
-                            child: Text(_configs.textNo),
+                            child: Text(_configs.textNo(context)),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
                           ),
                           TextButton(
-                            child: Text(_configs.textYes),
+                            child: Text(_configs.textYes(context)),
                             onPressed: () {
                               Navigator.of(context).pop();
                               _removeImage(index);
@@ -1200,7 +1203,7 @@ class _ImagePickerState extends State<ImagePicker>
                                   !_configs.imagePreProcessingEnabled;
 
                               return ImageViewer(
-                                  title: _configs.textPreviewTitle,
+                                  title: _configs.textPreviewTitle(context),
                                   images: _selectedImages,
                                   initialIndex: i,
                                   configs: _configs,
@@ -1431,14 +1434,14 @@ class _ImagePickerState extends State<ImagePicker>
           backgroundColor: Colors.transparent,
           thumbColor: Colors.transparent,
           children: {
-            0: Text(_configs.textCameraTitle,
+            0: Text(_configs.textCameraTitle(context),
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: (_mode == PickerMode.Camera)
                         ? Colors.white
                         : Colors.grey)),
-            1: Text(_configs.textAlbumTitle,
+            1: Text(_configs.textAlbumTitle(context),
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -1494,7 +1497,7 @@ class _ImagePickerState extends State<ImagePicker>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(_configs.textExposure, style: textStyle),
+                  Text(_configs.textExposure(context), style: textStyle),
                   const SizedBox(width: 8),
                   TextButton(
                     style: styleAuto,
@@ -1507,7 +1510,7 @@ class _ImagePickerState extends State<ImagePicker>
                         _controller!.setExposurePoint(null);
                       }
                     },
-                    child: Text(_configs.textExposureAuto),
+                    child: Text(_configs.textExposureAuto(context)),
                   ),
                   TextButton(
                     style: styleLocked,
@@ -1515,7 +1518,7 @@ class _ImagePickerState extends State<ImagePicker>
                         ? () =>
                             _onSetExposureModeButtonPressed(ExposureMode.locked)
                         : null,
-                    child: Text(_configs.textExposureLocked),
+                    child: Text(_configs.textExposureLocked(context)),
                   ),
                 ],
               ),

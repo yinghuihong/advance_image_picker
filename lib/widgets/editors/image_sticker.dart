@@ -117,9 +117,7 @@ class _ImageStickerState extends State<ImageSticker>
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        leading: CloseButton(
-            color: _appBarTextColor
-        ),
+        leading: CloseButton(color: _appBarTextColor),
         title: Text(widget.title, style: TextStyle(color: _appBarTextColor)),
         backgroundColor: _appBarBackgroundColor,
         foregroundColor: _appBarTextColor,
@@ -144,19 +142,15 @@ class _ImageStickerState extends State<ImageSticker>
                       })
                   : _buildImageStack(context),
             ),
+            Center(
+                child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: Text(_configs.textImageStickerGuide(context),
+                  style: const TextStyle(color: Colors.white)),
+            )),
             _buildStickerList(context)
           ],
         ),
-        Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Center(
-                child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(_configs.textImageStickerGuide,
-                  style: const TextStyle(color: Colors.white)),
-            ))),
         Positioned(
             bottom: 120,
             left: 0,
@@ -169,7 +163,7 @@ class _ImageStickerState extends State<ImageSticker>
   /// Done process button.
   Widget _buildDoneButton(BuildContext context, Color _appBarTextColor) {
     return IconButton(
-      icon: Icon(Icons.done, color: _appBarTextColor),
+      icon: Icon(Icons.done_outlined, color: _appBarTextColor),
       onPressed: (_selectedStickerView == null)
           ? () async {
               // Save current image editing
@@ -198,7 +192,7 @@ class _ImageStickerState extends State<ImageSticker>
   Widget _buildStickerList(BuildContext context) {
     return Container(
         color: Colors.black,
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
         height: 120,
         child: GridView.builder(
           padding: EdgeInsets.zero,

@@ -100,9 +100,7 @@ class _ImageEditState extends State<ImageEdit>
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        leading: CloseButton(
-            color: _appBarTextColor
-        ),
+        leading: CloseButton(color: _appBarTextColor),
         title: Text(widget.title, style: TextStyle(color: _appBarTextColor)),
         backgroundColor: _appBarBackgroundColor,
         foregroundColor: _appBarTextColor,
@@ -129,13 +127,16 @@ class _ImageEditState extends State<ImageEdit>
           mainAxisSize: MainAxisSize.min,
           children: [
             GestureDetector(
+              behavior: HitTestBehavior.opaque,
               onTap: () {
                 setState(() {
                   _controlExpanded = false;
                 });
               },
-              child: Row(
-                  children: const [Spacer(), Icon(Icons.keyboard_arrow_down)]),
+              child: Row(children: const [
+                Spacer(),
+                Icon(Icons.keyboard_arrow_down, color: Colors.white)
+              ]),
             ),
             const Divider(),
             _buildContrastAdjustControl(context),
@@ -152,28 +153,23 @@ class _ImageEditState extends State<ImageEdit>
           });
         },
         child: Container(
-            color: const Color(0xFF212121),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      "${_configs.textContrast}: "
-                      "${_contrast.toString()}",
-                      style: textStyle),
-                  Text("${_configs.textBrightness}: ${_brightness.toString()}",
-                      style: textStyle),
-                  Text("${_configs.textSaturation}: ${_saturation.toString()}",
-                      style: textStyle),
-                  const Icon(Icons.keyboard_arrow_up)
-                ])),
+          color: const Color(0xFF212121),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Row(children: const [
+            Spacer(),
+            Icon(Icons.keyboard_arrow_up, color: Colors.white)
+          ]),
+        ),
       );
     }
   }
 
   Widget _buildDoneButton(BuildContext context, Color _appBarTextColor) {
     return IconButton(
-      icon: Icon(Icons.done, color: _appBarTextColor,),
+      icon: Icon(
+        Icons.done_outlined,
+        color: _appBarTextColor,
+      ),
       onPressed: () async {
         final dir = await path_provider.getTemporaryDirectory();
         final targetPath = "${dir.absolute.path}/temp_"
@@ -272,7 +268,7 @@ class _ImageEditState extends State<ImageEdit>
       padding: const EdgeInsets.all(8),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
-          Text(_configs.textContrast, style: textStyle),
+          Text(_configs.textContrast(context), style: textStyle),
           const Spacer(),
           Text(_contrast.toString(), style: textStyle)
         ]),
@@ -308,7 +304,7 @@ class _ImageEditState extends State<ImageEdit>
       padding: const EdgeInsets.all(8),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
-          Text(_configs.textBrightness, style: textStyle),
+          Text(_configs.textBrightness(context), style: textStyle),
           const Spacer(),
           Text(_brightness.toString(), style: textStyle)
         ]),
@@ -344,7 +340,7 @@ class _ImageEditState extends State<ImageEdit>
       padding: const EdgeInsets.all(8),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
-          Text(_configs.textSaturation, style: textStyle),
+          Text(_configs.textSaturation(context), style: textStyle),
           const Spacer(),
           Text(_saturation.toString(), style: textStyle)
         ]),

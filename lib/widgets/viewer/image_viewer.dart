@@ -89,8 +89,8 @@ class _ImageViewerState extends State<ImageViewer>
 
     // Add preset image editors
     if (_configs.cropFeatureEnabled) {
-      imageEditors[_configs.textImageCropTitle] = EditorParams(
-          title: _configs.textImageCropTitle,
+      imageEditors[_configs.textImageCropTitle(context)] = EditorParams(
+          title: _configs.textImageCropTitle(context),
           icon: Icons.crop_rotate,
           onEditorEvent: (
               {required BuildContext context,
@@ -127,8 +127,8 @@ class _ImageViewerState extends State<ImageViewer>
           });
     }
     if (_configs.adjustFeatureEnabled) {
-      imageEditors[_configs.textImageEditTitle] = EditorParams(
-          title: _configs.textImageEditTitle,
+      imageEditors[_configs.textImageEditTitle(context)] = EditorParams(
+          title: _configs.textImageEditTitle(context),
           icon: Icons.wb_sunny_outlined,
           onEditorEvent: (
                   {required BuildContext context,
@@ -148,8 +148,8 @@ class _ImageViewerState extends State<ImageViewer>
                       configs: _configs))));
     }
     if (_configs.filterFeatureEnabled) {
-      imageEditors[_configs.textImageFilterTitle] = EditorParams(
-          title: _configs.textImageFilterTitle,
+      imageEditors[_configs.textImageFilterTitle(context)] = EditorParams(
+          title: _configs.textImageFilterTitle(context),
           icon: Icons.auto_awesome,
           onEditorEvent: (
                   {required BuildContext context,
@@ -169,8 +169,8 @@ class _ImageViewerState extends State<ImageViewer>
                       configs: _configs))));
     }
     if (_configs.stickerFeatureEnabled) {
-      imageEditors[_configs.textImageStickerTitle] = EditorParams(
-          title: _configs.textImageStickerTitle,
+      imageEditors[_configs.textImageStickerTitle(context)] = EditorParams(
+          title: _configs.textImageStickerTitle(context),
           icon: Icons.insert_emoticon_rounded,
           onEditorEvent: (
                   {required BuildContext context,
@@ -261,11 +261,11 @@ class _ImageViewerState extends State<ImageViewer>
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-            leading: BackButton(
-                color: _appBarTextColor
-            ),
-            title: Text("${widget.title} (${_currentIndex! + 1} "
-                "/ ${_images.length})", style: TextStyle(color: _appBarTextColor)),
+            leading: BackButton(color: _appBarTextColor),
+            title: Text(
+                "${widget.title} (${_currentIndex! + 1} "
+                "/ ${_images.length})",
+                style: TextStyle(color: _appBarTextColor)),
             backgroundColor: _appBarBackgroundColor,
             foregroundColor: _appBarTextColor,
             actions: [
@@ -277,17 +277,18 @@ class _ImageViewerState extends State<ImageViewer>
                           builder: (BuildContext context) {
                             // return object of type Dialog.
                             return AlertDialog(
-                              title: Text(_configs.textConfirm),
-                              content: Text(_configs.textConfirmDelete),
+                              title: Text(_configs.textConfirm(context)),
+                              content:
+                                  Text(_configs.textConfirmDelete(context)),
                               actions: <Widget>[
                                 TextButton(
-                                  child: Text(_configs.textNo),
+                                  child: Text(_configs.textNo(context)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                 ),
                                 TextButton(
-                                  child: Text(_configs.textYes),
+                                  child: Text(_configs.textYes(context)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                     setState(() {
@@ -311,7 +312,7 @@ class _ImageViewerState extends State<ImageViewer>
                     : null,
                 child: Padding(
                   padding: const EdgeInsets.all(12),
-                  child: Icon(Icons.delete,
+                  child: Icon(Icons.delete_outlined,
                       size: 24,
                       color:
                           hasImages ? _configs.appBarTextColor : Colors.grey),
@@ -330,7 +331,7 @@ class _ImageViewerState extends State<ImageViewer>
                   ),
                 ])
               : Center(
-                  child: Text(_configs.textNoImages,
+                  child: Text(_configs.textNoImages(context),
                       style: const TextStyle(color: Colors.grey))),
         ));
   }
@@ -580,7 +581,7 @@ class _ImageViewerState extends State<ImageViewer>
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 8, horizontal: 12),
                                 child: Row(children: [
-                                  Text(_configs.textEditText,
+                                  Text(_configs.textEditText(context),
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18)),
@@ -618,7 +619,7 @@ class _ImageViewerState extends State<ImageViewer>
                                               Radius.circular(30)),
                                         ),
                                       ),
-                                      child: Text(_configs.textClear,
+                                      child: Text(_configs.textClear(context),
                                           style: const TextStyle(
                                               color: Colors.red)),
                                       onPressed: () {
@@ -637,7 +638,7 @@ class _ImageViewerState extends State<ImageViewer>
                                               Radius.circular(30)),
                                         ),
                                       ),
-                                      child: Text(_configs.textSave,
+                                      child: Text(_configs.textSave(context),
                                           style: const TextStyle(
                                               color: Colors.white)),
                                       onPressed: () {
@@ -684,7 +685,7 @@ class _ImageViewerState extends State<ImageViewer>
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Row(children: [
-                Text(_configs.textOCR,
+                Text(_configs.textOCR(context),
                     style: const TextStyle(color: Colors.white)),
                 if (_isProcessing)
                   const Padding(
@@ -746,17 +747,17 @@ class _ImageViewerState extends State<ImageViewer>
                 builder: (BuildContext context) {
                   // return object of type Dialog
                   return AlertDialog(
-                    title: Text(_configs.textConfirm),
-                    content: Text(_configs.textConfirmResetChanges),
+                    title: Text(_configs.textConfirm(context)),
+                    content: Text(_configs.textConfirmResetChanges(context)),
                     actions: <Widget>[
                       TextButton(
-                        child: Text(_configs.textNo),
+                        child: Text(_configs.textNo(context)),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
-                        child: Text(_configs.textYes),
+                        child: Text(_configs.textYes(context)),
                         onPressed: () {
                           Navigator.of(context).pop();
                           setState(() {

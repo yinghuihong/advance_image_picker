@@ -406,13 +406,79 @@ class _ImageViewerState extends State<ImageViewer>
 
   /// Build reorderable selected image list.
   Widget _buildReorderableSelectedImageList(BuildContext context) {
-    Widget makeThumbnail(String? path) {
+    Widget makeThumbnailImage(String? path) {
       return ClipRRect(
           borderRadius: BorderRadius.circular(7),
           child: Image.file(File(path!),
               fit: BoxFit.cover,
               width: _configs.thumbWidth.toDouble(),
               height: _configs.thumbHeight.toDouble()));
+    }
+
+    /// Make an image thumbnail widget.
+    Widget makeThumbnailWidget(String? path, int index) {
+      if (!_configs.showDeleteButtonOnSelectedList) {
+        return makeThumbnailImage(path);
+      }
+      return Stack(fit: StackFit.passthrough, children: [
+        makeThumbnailImage(path),
+        Positioned(
+          top: 2,
+          right: 2,
+          child: GestureDetector(
+              child: Container(
+                margin: const EdgeInsets.all(2),
+                decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                height: 24,
+                width: 24,
+                child: const Icon(
+                  Icons.close_outlined,
+                  size: 16,
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {
+                showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    // return object of type Dialog.
+                    return AlertDialog(
+                      title: Text(_configs.textConfirm(context)),
+                      content: Text(_configs.textConfirmDelete(context)),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(_configs.textNo(context)),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                          child: Text(_configs.textYes(context)),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            setState(() {
+                              final deleteIndex = index;
+                              if (_images.length > 1) {
+                                _currentIndex = max(_currentIndex! - 1, 0);
+                              } else {
+                                _currentIndex = -1;
+                              }
+                              _images.removeAt(deleteIndex);
+                              widget.onChanged?.call(_images);
+                            });
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }),
+        )
+      ]);
     }
 
     return Container(
@@ -453,7 +519,7 @@ class _ImageViewerState extends State<ImageViewer>
                                 curve: Curves.easeIn);
                           }
                         },
-                        child: makeThumbnail(_images[i].modifiedPath),
+                        child: makeThumbnailWidget(_images[i].modifiedPath, i),
                       ))
               ]),
         ));

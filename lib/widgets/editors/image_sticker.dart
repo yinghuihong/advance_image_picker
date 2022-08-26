@@ -251,7 +251,7 @@ class _ImageStickerState extends State<ImageSticker>
               width: size.width,
               height: size.height - 300,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.transparent,
                   image: DecorationImage(
                       fit: BoxFit.contain, image: MemoryImage(_imageBytes!))),
             ),

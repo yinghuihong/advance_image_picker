@@ -174,7 +174,7 @@ class _ImageFilterState extends State<ImageFilter>
             : Column(
                 children: [
                   Expanded(
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       height: double.infinity,
                       // padding: const EdgeInsets.all(8),
@@ -255,7 +255,7 @@ class _ImageFilterState extends State<ImageFilter>
         );
       } else {
         return Container(
-          color: Colors.white,
+          color: Colors.transparent,
           child: Image.memory(
             bytes!,
             fit: BoxFit.contain,

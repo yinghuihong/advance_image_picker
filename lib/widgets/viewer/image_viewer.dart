@@ -269,55 +269,64 @@ class _ImageViewerState extends State<ImageViewer>
             backgroundColor: _appBarBackgroundColor,
             foregroundColor: _appBarTextColor,
             actions: [
-              GestureDetector(
-                onTap: hasImages
-                    ? () async {
-                        await showDialog<void>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            // return object of type Dialog.
-                            return AlertDialog(
-                              title: Text(_configs.textConfirm(context)),
-                              content:
-                                  Text(_configs.textConfirmDelete(context)),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text(_configs.textNo(context)),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                TextButton(
-                                  child: Text(_configs.textYes(context)),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    setState(() {
-                                      final deleteIndex = _currentIndex!;
-                                      if (_images.length > 1) {
-                                        _currentIndex =
-                                            max(_currentIndex! - 1, 0);
-                                      } else {
-                                        _currentIndex = -1;
-                                      }
-                                      _images.removeAt(deleteIndex);
-                                      widget.onChanged?.call(_images);
-                                    });
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    : null,
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Icon(Icons.delete_outlined,
-                      size: 24,
-                      color:
-                          hasImages ? _configs.appBarTextColor : Colors.grey),
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: Icon(
+                  Icons.check,
+                  color: _appBarTextColor,
                 ),
-              ),
+              )
+              // GestureDetector(
+              //   onTap: hasImages
+              //       ? () async {
+              //           await showDialog<void>(
+              //             context: context,
+              //             builder: (BuildContext context) {
+              //               // return object of type Dialog.
+              //               return AlertDialog(
+              //                 title: Text(_configs.textConfirm(context)),
+              //                 content:
+              //                     Text(_configs.textConfirmDelete(context)),
+              //                 actions: <Widget>[
+              //                   TextButton(
+              //                     child: Text(_configs.textNo(context)),
+              //                     onPressed: () {
+              //                       Navigator.of(context).pop();
+              //                     },
+              //                   ),
+              //                   TextButton(
+              //                     child: Text(_configs.textYes(context)),
+              //                     onPressed: () {
+              //                       Navigator.of(context).pop();
+              //                       setState(() {
+              //                         final deleteIndex = _currentIndex!;
+              //                         if (_images.length > 1) {
+              //                           _currentIndex =
+              //                               max(_currentIndex! - 1, 0);
+              //                         } else {
+              //                           _currentIndex = -1;
+              //                         }
+              //                         _images.removeAt(deleteIndex);
+              //                         widget.onChanged?.call(_images);
+              //                       });
+              //                     },
+              //                   ),
+              //                 ],
+              //               );
+              //             },
+              //           );
+              //         }
+              //       : null,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(12),
+              //     child: Icon(Icons.delete_outlined,
+              //         size: 24,
+              //         color:
+              //             hasImages ? _configs.appBarTextColor : Colors.grey),
+              //   ),
+              // ),
             ]),
         body: SafeArea(
           child: hasImages
@@ -348,7 +357,7 @@ class _ImageViewerState extends State<ImageViewer>
               builder: _buildItem,
               itemCount: _images.length,
               backgroundDecoration: const BoxDecoration(
-                color: Colors.white,
+                color: Colors.transparent,
               ),
               pageController: widget.pageController,
               onPageChanged: onPageChanged,

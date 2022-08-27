@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:smart_cropper/smart_cropper.dart';
 
 import '../../configs/image_picker_configs.dart';
 import '../../models/image_object.dart';
@@ -269,6 +270,26 @@ class _ImageViewerState extends State<ImageViewer>
             backgroundColor: _appBarBackgroundColor,
             foregroundColor: _appBarTextColor,
             actions: [
+              IconButton(
+                onPressed: () async {
+                  final originFilePath = await _imagePreProcessing(
+                      _images[_currentIndex!].modifiedPath);
+                  debugPrint('xxx smartCropper originFilePath $originFilePath');
+                  final outputFilePath =
+                      await SmartCropper().getCroppedPath(originFilePath.path);
+                  debugPrint('xxx smartCropper outputFilePath $outputFilePath');
+                  if (outputFilePath != null) {
+                    setState(() {
+                      _images[_currentIndex!].modifiedPath = outputFilePath;
+                      widget.onChanged?.call(_images);
+                    });
+                  }
+                },
+                icon: Icon(
+                  Icons.crop_free_rounded,
+                  color: _appBarTextColor,
+                ),
+              ),
               IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();

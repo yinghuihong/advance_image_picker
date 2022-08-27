@@ -185,7 +185,7 @@ class _ImageEditState extends State<ImageEdit>
   Widget _buildImageViewer(BuildContext context) {
     Widget imageView() => Container(
           // padding: const EdgeInsets.all(12),
-          color: Colors.white,
+          color: Colors.transparent,
           child: Image.memory(
             _imageBytes!,
             fit: BoxFit.contain,

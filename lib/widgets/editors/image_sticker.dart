@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -60,6 +59,8 @@ class _ImageStickerState extends State<ImageSticker>
   final double _maxScale = 2.5;
 
   StickerView? _selectedStickerView;
+
+  bool _saving = false;
 
   @override
   void initState() {
@@ -128,19 +129,21 @@ class _ImageStickerState extends State<ImageSticker>
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
-              child: (_imageBytes == null)
-                  ? FutureBuilder(
-                      future: _readImage(),
-                      builder: (BuildContext context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return _buildImageStack(context);
-                        } else {
-                          return const Center(
-                            child: CupertinoActivityIndicator(),
-                          );
-                        }
-                      })
-                  : _buildImageStack(context),
+              child: Center(
+                child: (_imageBytes == null)
+                    ? FutureBuilder(
+                        future: _readImage(),
+                        builder: (BuildContext context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            return _buildImageStack(context);
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        })
+                    : _buildImageStack(context),
+              ),
             ),
             Center(
                 child: Padding(
@@ -150,6 +153,15 @@ class _ImageStickerState extends State<ImageSticker>
             )),
             _buildStickerList(context)
           ],
+        ),
+        Positioned(
+          bottom: 120,
+          top: 0,
+          left: 0,
+          right: 0,
+          child: _saving
+              ? const Center(child: CircularProgressIndicator())
+              : const SizedBox(),
         ),
         Positioned(
             bottom: 120,
@@ -166,6 +178,9 @@ class _ImageStickerState extends State<ImageSticker>
       icon: Icon(Icons.done_outlined, color: _appBarTextColor),
       onPressed: (_selectedStickerView == null)
           ? () async {
+              setState(() {
+                _saving = true;
+              });
               // Save current image editing
               final Uint8List? image =
                   await _exportWidgetToImage(_boundaryKey!);
@@ -184,7 +199,11 @@ class _ImageStickerState extends State<ImageSticker>
                 Navigator.of(context).pop(file);
               }
             }
-          : null,
+          : () {
+            setState(() {
+              _selectedStickerView = null;
+            });
+      },
     );
   }
 
@@ -192,7 +211,7 @@ class _ImageStickerState extends State<ImageSticker>
   Widget _buildStickerList(BuildContext context) {
     return Container(
         color: Colors.black,
-        padding: const EdgeInsets.symmetric(horizontal: 0),
+        padding: EdgeInsets.zero,
         height: 120,
         child: GridView.builder(
           padding: EdgeInsets.zero,
@@ -247,14 +266,15 @@ class _ImageStickerState extends State<ImageSticker>
         child: Stack(
           fit: StackFit.passthrough,
           children: <Widget>[
-            Container(
-              width: size.width,
-              height: size.height - 300,
-              decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  image: DecorationImage(
-                      fit: BoxFit.contain, image: MemoryImage(_imageBytes!))),
-            ),
+            Image(image: MemoryImage(_imageBytes!)),
+            // Container(
+            //   width: size.width,
+            //   height: size.height - 300,
+            //   decoration: BoxDecoration(
+            //       color: Colors.transparent,
+            //       image: DecorationImage(
+            //           fit: BoxFit.contain, image: MemoryImage(_imageBytes!))),
+            // ),
             ..._attachedList.map((e) => Positioned(
                 top: e.top,
                 left: e.left,

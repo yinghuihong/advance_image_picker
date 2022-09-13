@@ -148,6 +148,11 @@ class ImagePickerConfigs {
   /// Enable image crop/rotation/scale function.
   ///
   /// Defaults to true.
+  bool smartCropFeatureEnabled = true;
+
+  /// Enable image crop/rotation/scale function.
+  ///
+  /// Defaults to true.
   bool cropFeatureEnabled = true;
 
   /// Enable image filter function.
@@ -422,6 +427,12 @@ class ImagePickerConfigs {
   /// Defaults to "No images ...".
   String textNoImages(BuildContext context) =>
       getTranslatedString(context, "image_picker_no_images", "No images ...");
+
+  /// Get localized text for label "image_picker_smart_crop_title".
+  ///
+  /// Defaults to "Image crop".
+  String textSmartCropTitle(BuildContext context) => getTranslatedString(
+      context, "image_picker_smart_crop_title", "Smart crop");
 
   /// Get localized text for label "image_picker_image_crop_title".
   ///

@@ -89,6 +89,33 @@ class _ImageViewerState extends State<ImageViewer>
     final Map<String, EditorParams> imageEditors = {};
 
     // Add preset image editors
+    if (_configs.smartCropFeatureEnabled) {
+      imageEditors[_configs.textSmartCropTitle(context)] = EditorParams(
+          title: _configs.textSmartCropTitle(context),
+          icon: Icons.crop_free_rounded,
+          onEditorEvent: (
+              {required BuildContext context,
+              required File file,
+              required String title,
+              int maxWidth = 1080,
+              int maxHeight = 1920,
+              int compressQuality = 90,
+              ImagePickerConfigs? configs}) async {
+            final originFilePath =
+                await _imagePreProcessing(_images[_currentIndex!].modifiedPath);
+            debugPrint('xxx smartCropper originFilePath $originFilePath');
+            final outputFilePath =
+                await SmartCropper().getCroppedPath(title, originFilePath.path);
+            debugPrint('xxx smartCropper outputFilePath $outputFilePath');
+            if (outputFilePath != null) {
+              setState(() {
+                _images[_currentIndex!].modifiedPath = outputFilePath;
+                widget.onChanged?.call(_images);
+              });
+            }
+            return null;
+          });
+    }
     if (_configs.cropFeatureEnabled) {
       imageEditors[_configs.textImageCropTitle(context)] = EditorParams(
           title: _configs.textImageCropTitle(context),
@@ -196,9 +223,8 @@ class _ImageViewerState extends State<ImageViewer>
 
     // Create image editor icons
     return imageEditors.values
-        .map((e) => GestureDetector(
-              child: Icon(e.icon, size: 32, color: Colors.white),
-              onTap: () async {
+        .map((e) => IconButton(
+              onPressed: () async {
                 final image = await _imagePreProcessing(
                     _images[_currentIndex!].modifiedPath);
                 final File? outputFile = await e.onEditorEvent(
@@ -215,6 +241,7 @@ class _ImageViewerState extends State<ImageViewer>
                   });
                 }
               },
+              icon: Icon(e.icon, size: 32, color: Colors.white),
             ))
         .toList();
   }
@@ -270,26 +297,6 @@ class _ImageViewerState extends State<ImageViewer>
             backgroundColor: _appBarBackgroundColor,
             foregroundColor: _appBarTextColor,
             actions: [
-              IconButton(
-                onPressed: () async {
-                  final originFilePath = await _imagePreProcessing(
-                      _images[_currentIndex!].modifiedPath);
-                  debugPrint('xxx smartCropper originFilePath $originFilePath');
-                  final outputFilePath =
-                      await SmartCropper().getCroppedPath(originFilePath.path);
-                  debugPrint('xxx smartCropper outputFilePath $outputFilePath');
-                  if (outputFilePath != null) {
-                    setState(() {
-                      _images[_currentIndex!].modifiedPath = outputFilePath;
-                      widget.onChanged?.call(_images);
-                    });
-                  }
-                },
-                icon: Icon(
-                  Icons.crop_free_rounded,
-                  color: _appBarTextColor,
-                ),
-              ),
               IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();

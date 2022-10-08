@@ -10,7 +10,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  camera: ^0.10.0+1
+  camera: ^0.10.0+3
   flutter:
     sdk: flutter
   flutter_native_image: ^0.0.6+1
@@ -18,10 +18,11 @@ dependencies:
   image_cropper: ^3.0.0
   image_editor: ^1.1.0
   path_provider: ^2.0.11
-  photo_manager: ^2.2.1
+  photo_manager: ^2.3.0 # https://pub.dev/packages/photo_manager
   photo_view: ^0.14.0
   smart_cropper:
     path: ../smart_cropper/
+#  firebase_analytics: ^9.3.5 # https://pub.dev/packages/firebase_analytics https://firebase.flutter.dev/docs/analytics/get-started
 
 dev_dependencies:
   flutter_test:

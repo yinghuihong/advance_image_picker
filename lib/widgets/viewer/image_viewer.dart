@@ -714,7 +714,6 @@ class _ImageViewerState extends State<ImageViewer>
                                   children: [
                                     TextButton(
                                       style: TextButton.styleFrom(
-                                        primary: Colors.black87,
                                         backgroundColor: Colors.grey.shade200,
                                         padding: EdgeInsets.zero,
                                         shape: const RoundedRectangleBorder(
@@ -733,7 +732,6 @@ class _ImageViewerState extends State<ImageViewer>
                                     ),
                                     TextButton(
                                       style: TextButton.styleFrom(
-                                        primary: Colors.blue,
                                         backgroundColor: Colors.blue,
                                         padding: EdgeInsets.zero,
                                         shape: const RoundedRectangleBorder(

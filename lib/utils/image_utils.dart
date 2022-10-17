@@ -15,6 +15,7 @@ class ImageUtils {
     return FlutterNativeImage.getImageProperties(path);
   }
 
+  /// 存在问题，转换后将导致原透明背景变成黑色
   /// Compare & resize image file in [path].
   /// Pass [quality], [maxWidth], [maxHeight] for output image file.
   static Future<File> compressResizeImage(String path,

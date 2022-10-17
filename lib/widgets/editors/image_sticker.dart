@@ -189,12 +189,13 @@ class _ImageStickerState extends State<ImageSticker>
                 final dir = await path_provider.getTemporaryDirectory();
                 final targetPath =
                     "${dir.absolute.path}/temp_${TimeUtils.getTimeString(DateTime.now())}.jpg";
-                File file = File(targetPath);
+                final File file = File(targetPath);
                 await file.writeAsBytes(image);
 
-                // Compress & resize result image
-                file = await ImageUtils.compressResizeImage(targetPath,
-                    maxWidth: widget.maxWidth, maxHeight: widget.maxHeight);
+                /// 存在问题，转换后将导致原透明背景变成黑色
+                // // Compress & resize result image
+                // file = await ImageUtils.compressResizeImage(targetPath,
+                //     maxWidth: widget.maxWidth, maxHeight: widget.maxHeight);
                 if (!mounted) return;
                 Navigator.of(context).pop(file);
               }

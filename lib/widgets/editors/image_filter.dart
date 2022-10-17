@@ -10,7 +10,6 @@ import 'package:image_editor/image_editor.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 import '../../configs/image_picker_configs.dart';
-import '../../utils/image_utils.dart';
 import '../../utils/log_utils.dart';
 import '../../utils/time_utils.dart';
 import '../common/portrait_mode_mixin.dart';
@@ -82,11 +81,12 @@ class _ImageFilterState extends State<ImageFilter>
 
   Future<void> _loadImageData() async {
     _imageBytes = await widget.file.readAsBytes();
-    _thumbnailImageBytes = await (await ImageUtils.compressResizeImage(
-            widget.file.path,
-            maxWidth: 100,
-            maxHeight: 100))
-        .readAsBytes();
+    _thumbnailImageBytes = await widget.file.readAsBytes();
+    // _thumbnailImageBytes = await (await ImageUtils.compressResizeImage(
+    //         widget.file.path,
+    //         maxWidth: 100,
+    //         maxHeight: 100))
+    //     .readAsBytes();
 
     setState(() {
       _loading = false;
@@ -250,7 +250,7 @@ class _ImageFilterState extends State<ImageFilter>
                   color: isSelected ? widget.configs!.appBarDoneButtonColor! : Colors.white, width: 3),
               borderRadius: const BorderRadius.all(Radius.circular(10))),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(7),
               child: Image.memory(bytes!, fit: BoxFit.cover)),
         );
       } else {
@@ -293,29 +293,20 @@ class _ImageFilterState extends State<ImageFilter>
     }
   }
 
+  // https://developer.android.google.cn/reference/android/graphics/ColorMatrix.html
   static const List<Filter> _presetFilters = <Filter>[
     Filter(name: "no filter"),
+    Filter(name: "invert", matrix: <double>[
+      -1, 0, 0, 0, 255, // R
+      0, -1, 0, 0, 255,
+      0, 0, -1, 0, 255,
+      0, 0, 0, 1, 0
+    ]),
     Filter(name: "lighten", matrix: <double>[
-      1.5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1.5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1.5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      0
+      1.5, 0, 0, 0, 0, // R
+      0, 1.5, 0, 0, 0, // G
+      0, 0, 1.5, 0, 0, // B
+      0, 0, 0, 1, 0 // A
     ]),
     Filter(name: "darken", matrix: <double>[
       .5,

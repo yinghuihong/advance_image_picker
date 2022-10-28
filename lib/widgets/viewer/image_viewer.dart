@@ -155,8 +155,8 @@ class _ImageViewerState extends State<ImageViewer>
           });
     }
     if (_configs.adjustFeatureEnabled) {
-      imageEditors[_configs.textImageEditTitle(context)] = EditorParams(
-          title: _configs.textImageEditTitle(context),
+      imageEditors[_configs.textImageColorTitle(context)] = EditorParams(
+          title: _configs.textImageColorTitle(context),
           icon: Icons.wb_sunny_outlined,
           onEditorEvent: (
                   {required BuildContext context,

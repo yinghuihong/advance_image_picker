@@ -449,14 +449,20 @@ class ImagePickerConfigs {
   /// Get localized text for label "image_picker_image_edit_title".
   ///
   /// Defaults to "Image edit".
-  String textImageEditTitle(BuildContext context) => getTranslatedString(
-      context, "image_picker_image_edit_title", "Image edit");
+  String textImageColorTitle(BuildContext context) => getTranslatedString(
+      context, "image_picker_image_edit_title", "Image color");
 
   /// Get localized text for label "image_picker_image_sticker_title".
   ///
   /// Defaults to "Image sticker".
   String textImageStickerTitle(BuildContext context) => getTranslatedString(
       context, "image_picker_image_sticker_title", "Image sticker");
+
+  /// Get localized text for label "image_picker_image_signature_title".
+  ///
+  /// Defaults to "Add Signature".
+  String textImageSignatureTitle(BuildContext context) => getTranslatedString(
+      context, "image_picker_image_signature_title", "Add Signature");
 
   /// Get localized text for label "image_picker_image_addtext_title".
   ///

@@ -1005,11 +1005,18 @@ class _ImagePickerState extends State<ImagePicker>
     if (_albums.isNotEmpty && _albumThumbnails.isEmpty) {
       final List<Uint8List?> ret = [];
       for (final a in _albums) {
-        final f = await (await a.getAssetListRange(start: 0, end: 1))
-            .first
-            .thumbnailDataWithSize(ThumbnailSize(
-                _configs.albumThumbWidth, _configs.albumThumbHeight));
-        ret.add(f);
+        try {
+          final f = await (await a.getAssetListRange(start: 0, end: 1))
+              .first
+              .thumbnailDataWithSize(ThumbnailSize(
+              _configs.albumThumbWidth, _configs.albumThumbHeight));
+          ret.add(f);
+        } catch(e) {
+          /// 默认缩略图
+          final ByteData bytes = await rootBundle.load('packages/advance_image_picker/assets/icon/loading.png');
+          final Uint8List list = bytes.buffer.asUint8List();
+          ret.add(list);
+        }
       }
       _albumThumbnails = ret;
     }
@@ -1025,11 +1032,12 @@ class _ImagePickerState extends State<ImagePicker>
     return FutureBuilder(
       future: _buildAlbumThumbnails(),
       builder: (BuildContext context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            _albumThumbnails.isNotEmpty) {
           return ListView.builder(
-              itemCount: _albums.length,
+              itemCount: _albumThumbnails.length,
               itemBuilder: (context, i) {
-                final album = _albums[i];
+                final album = albums[i];
                 final thumbnail = _albumThumbnails[i];
                 if (thumbnail == null) {
                   return Container();
@@ -1053,7 +1061,9 @@ class _ImagePickerState extends State<ImagePicker>
               });
         } else {
           return const Center(
-            child: CupertinoActivityIndicator(),
+            child: CupertinoActivityIndicator(
+              color: Colors.white,
+            ),
           );
         }
       },

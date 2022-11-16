@@ -76,6 +76,7 @@ class _ImageViewerState extends State<ImageViewer>
 
     // Add images.
     _images = [...widget.images!];
+    _images.removeWhere((e) => !File(e.modifiedPath).existsSync());
     if (widget.configs != null) _configs = widget.configs!;
 
     // Setup current selected index
@@ -410,6 +411,16 @@ class _ImageViewerState extends State<ImageViewer>
   /// Build an image viewer.
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
     final item = _images[index];
+    if (!File(item.modifiedPath).existsSync()) {
+      return PhotoViewGalleryPageOptions(
+          imageProvider: const AssetImage(
+            'assets/icon/loading.png',
+            package: 'advance_image_picker',
+          ),
+          initialScale: PhotoViewComputedScale.contained,
+          minScale: PhotoViewComputedScale.contained * 0.5,
+          maxScale: PhotoViewComputedScale.covered * 1.1);
+    }
     return PhotoViewGalleryPageOptions(
         imageProvider: FileImage(File(item.modifiedPath)),
         initialScale: PhotoViewComputedScale.contained,

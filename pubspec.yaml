@@ -10,7 +10,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  camera: ^0.10.0+4
+  camera: ^0.10.0+4 # https://pub.dev/packages/camera
   flutter:
     sdk: flutter
   flutter_native_image: ^0.0.6+1

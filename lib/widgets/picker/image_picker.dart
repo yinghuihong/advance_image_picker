@@ -276,6 +276,9 @@ class _ImagePickerState extends State<ImagePicker>
 
   /// Initialize current selected camera
   void _initCameraController() {
+    if (_controller == null) {
+      return;
+    }
     // Create future object for initializing new camera controller.
     final cameraController = _controller!;
     _initializeControllerFuture =

@@ -10,15 +10,15 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  camera: ^0.10.0+4 # https://pub.dev/packages/camera
+  camera: ^0.10.3+2 # https://pub.dev/packages/camera
   flutter:
     sdk: flutter
   flutter_native_image: ^0.0.6+1
-  image: ^3.2.0
+  image: ^3.3.0
   image_cropper: ^3.0.1
   image_editor: ^1.1.0
-  path_provider: ^2.0.11
-  photo_manager: ^2.3.0 # https://pub.dev/packages/photo_manager
+  path_provider: ^2.0.13
+  photo_manager: ^2.5.2 # https://pub.dev/packages/photo_manager
   photo_view: ^0.14.0
   smart_cropper:
     path: ../smart_cropper/
